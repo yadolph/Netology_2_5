@@ -7,7 +7,8 @@ class LogTime:
         self.log_file = open(log_path, 'a', encoding=encoding)
         global start_time
         start_time = datetime.datetime.utcnow()
-        self.log_file.write(f'{datetime.datetime.utcnow()}: Start \n')
+        self.log_file.write(f'{start_time}: Start \n')
+        print(f'Job started at UTC {start_time}')
 
     def __enter__(self):
         return self
@@ -21,6 +22,8 @@ class LogTime:
         self.write_log('end')
         end_time = datetime.datetime.utcnow()
         complete_time = end_time - start_time
+        print(f'Job ended at UTC {end_time}')
+        print(f'Job completed in {complete_time} seconds')
 
         self.write_log(f'Task completed in {complete_time} sec')
         self.log_file.close()
